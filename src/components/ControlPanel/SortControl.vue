@@ -1,43 +1,51 @@
 <template>
-    <div class="sort-panel">
-        <span>Сортировка</span>
-        <div>
-            <input type="radio" id="priceUp" value="priceUp" v-model="sortType">
-        <label for="priceUp">По возрастанию цены</label>
-        </div>
-        <div>
-            <input type="radio" id="priceDown" value="priceDown" v-model="sortType">
-        <label for="priceDown">По убыванию цены</label>
-        </div>
-        <div>
-            <input type="radio" id="abc" value="abc" v-model="sortType">
-            <label for="abc">по алфавиту</label>
-        </div>
+  <div class="sort-panel">
+    <span>Сортировка</span>
+    <div>
+      <input type="radio" id="priceUp" value="priceUp" v-model="sortType" />
+      <label for="priceUp">По возрастанию цены</label>
     </div>
+    <div>
+      <input type="radio" id="priceDown" value="priceDown" v-model="sortType" />
+      <label for="priceDown">По убыванию цены</label>
+    </div>
+    <div>
+      <input type="radio" id="abc" value="abc" v-model="sortType" />
+      <label for="abc">по алфавиту</label>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    data() {
-        return {
-            sortType: "priceUp"
-        }
+  data() {
+    return {
+      sortType: "priceUp"
+    };
+  },
+  created() {
+    this.$store.commit("sortValue", this.sortType);
+  },
+  watch: {
+    sortType: function() {
+      this.$store.commit("sortValue", this.sortType);
     }
-}
+  }
+};
 </script>
 
 <style lang="sass" scoped>
 .sort-panel
-    display: flex 
+    display: flex
     flex-direction: column
-    &>span 
+    &>span
         font-style: normal
         font-weight: 800
         font-size: 24px
         line-height: 120%
         letter-spacing: 0.03em
         margin-bottom: 16px
-    &>div 
+    &>div
         margin-bottom: 8px
         label
             margin-left: 4px
@@ -54,5 +62,4 @@ export default {
                 width: 0
                 height: 2px
                 background: rgba(0, 0, 0, 0.4)
-
 </style>

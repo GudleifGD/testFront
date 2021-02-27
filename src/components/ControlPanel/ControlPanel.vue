@@ -14,8 +14,8 @@ export default {
   components: {
     PriceControl,
     CurrencyControl,
-    SortControl,
-  },
+    SortControl
+  }
 };
 </script>
 

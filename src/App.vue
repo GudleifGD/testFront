@@ -1,13 +1,13 @@
 <template>
   <div id="app">
-      <control-panel></control-panel>
-      <product-list></product-list>
+    <control-panel></control-panel>
+    <product-list></product-list>
   </div>
 </template>
 
 <script>
-import ControlPanel from './components/ControlPanel/ControlPanel.vue';
-import ProductList from './components/Product/ProductList.vue';
+import ControlPanel from "./components/ControlPanel/ControlPanel.vue";
+import ProductList from "./components/Product/ProductList.vue";
 
 export default {
   name: "App",
@@ -19,13 +19,13 @@ export default {
 </script>
 
 <style lang="sass">
-body 
+body
   margin: 0
   padding: 0
 
 *
   box-sizing: border-box
-#app 
+#app
   font-family: Avenir, Helvetica, Arial, sans-serif
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale

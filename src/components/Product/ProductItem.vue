@@ -6,7 +6,7 @@
         {{ name }}
       </h5>
       <span>
-        {{ price }} 
+        {{ price }}
       </span>
       <p>
         {{ description }}
@@ -22,13 +22,13 @@ export default {
     name: String,
     price: Number,
     image: String,
-    description: String,
+    description: String
   },
   computed: {
     productImage() {
       return require(`@/assets/products/${this.image}`);
     }
-  },
+  }
 };
 </script>
 
@@ -43,19 +43,19 @@ export default {
     height: 300px
     border-radius: 8px
     background: #ffffff
-    transition: all ease-in 0.2s
+    transition: all ease-in 0.5s
     margin-bottom: 34px
     &:hover
         transform: translateY(-12px)
     img
         max-width: 120px
-        width: auto 
+        width: auto
         max-height: 120px
-    &>div 
+    &>div
         display: flex
         flex-direction: column
         margin-left: 24px
-        h5 
+        h5
             margin: 0 0 16px
             font-style: normal
             font-weight: 500
@@ -69,8 +69,8 @@ export default {
             font-size: 14px
             line-height: 17px
             color: #222222
-        p 
-            margin: 0 
+        p
+            margin: 0
             font-style: normal
             font-weight: 500
             font-size: 14px
