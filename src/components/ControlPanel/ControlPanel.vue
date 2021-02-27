@@ -26,5 +26,4 @@ export default {
     max-width: 350px
     padding: 24px
     border-right: 2px solid rgba(0, 0, 0, 0.2)
-    height: 100%
 </style>

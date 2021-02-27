@@ -4,9 +4,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    product: ''
   },
-  mutations: {},
-  actions: {},
+  mutations: {
+
+  },
+  actions: {
+
+  },
   modules: {}
 });

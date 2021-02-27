@@ -38,12 +38,13 @@ export default {
     align-items: center
     padding: 24px
     box-shadow: 0 10px 40px rgb(5 6 24 / 5%)
-    max-width: 350px
+    max-width: 450px
     width: 100%
-    height: 200px
+    height: 300px
     border-radius: 8px
     background: #ffffff
     transition: all ease-in 0.2s
+    margin-bottom: 34px
     &:hover
         transform: translateY(-12px)
     img
