@@ -8,7 +8,8 @@
           type="number"
           name="PriceFrom"
           id="PriceFrom"
-          v-model="priceFilterFrom"
+          v-model.number="priceFilterFrom"
+          step="100"
         />
       </div>
       <div>
@@ -17,7 +18,8 @@
           type="number"
           name="PriceTo"
           id="PriceTo"
-          v-model="priceFilterTo"
+          v-model.number="priceFilterTo"
+          step="100"
         />
       </div>
     </div>
@@ -28,26 +30,28 @@
 export default {
   name: "PriceControl",
   data() {
-    return {};
+    return {
+        
+    };
   },
   computed: {
     priceFilterFrom: {
-      get: function() {
+      get: function () {
         return this.$store.state.minPrice;
       },
-      set: function(newValue) {
-        this.$store.commit("minPriceValue", Number(newValue));
-      }
+      set: function (newValue) {
+        this.$store.commit("minPriceValue", newValue);
+      },
     },
     priceFilterTo: {
-      get: function() {
+      get: function () {
         return this.$store.state.maxPrice;
       },
-      set: function(newValue) {
-        this.$store.commit("maxPriceValue", Number(newValue));
-      }
+      set: function (newValue) {
+        this.$store.commit("maxPriceValue", newValue);
+      },
     }
-  }
+  },
 };
 </script>
 

@@ -2,7 +2,7 @@
   <div class="product-list">
     <transition-group>
       <product-item
-        v-for="product in products"
+        v-for="product in productsState"
         :key="product.id"
         :name="product.name"
         :image="product.image"
@@ -20,43 +20,33 @@ export default {
   name: "ProductList",
   data() {
     return {
-      products: []
+      products: [],
     };
   },
   created() {
     fetch("/products.json")
-      .then(result => result.json())
-      .then(data => {
-        this.products = data.products.sort(function(a, b) {
+      .then((result) => result.json())
+      .then((data) => {
+        this.products = data.products.sort(function (a, b) {
           return a.price - b.price;
         });
+        this.setRangePrice();
       });
   },
-  updated() {
-    let maxValue = Math.max.apply(
-      null,
-      this.products.map(item => item.price)
-    );
-    this.$store.commit("maxPriceValue", maxValue);
-    let minValue = Math.min.apply(
-      null,
-      this.products.map(item => item.price)
-    );
-    this.$store.commit("minPriceValue", minValue);
-  },
+  mounted() {},
   watch: {
-    sortType: function() {
+    sortType: function () {
       let oldProducts = this.products;
       if (this.sortType == "priceDown") {
-        this.products = oldProducts.sort(function(a, b) {
+        this.products = oldProducts.sort(function (a, b) {
           return b.price - a.price;
         });
       } else if (this.sortType == "priceUp") {
-        this.products = oldProducts.sort(function(a, b) {
+        this.products = oldProducts.sort(function (a, b) {
           return a.price - b.price;
         });
       } else if (this.sortType == "abc") {
-        this.products = oldProducts.sort(function(a, b) {
+        this.products = oldProducts.sort(function (a, b) {
           var nameA = a.name.toLowerCase(),
             nameB = b.name.toLowerCase();
           if (nameA < nameB) return -1;
@@ -64,9 +54,16 @@ export default {
           return 0;
         });
       }
-    }
+    },
   },
   computed: {
+    productsState() {
+      return this.products.filter(
+        (product) =>
+          this.minValueSort <= product.price &&
+          this.maxValueSort >= product.price
+      );
+    },
     sortType() {
       return this.$store.state.sortType;
     },
@@ -75,14 +72,28 @@ export default {
     },
     minValueSort() {
       return this.$store.state.minPrice;
-    }
+    },
   },
-  methods: {}
+  methods: {
+    setRangePrice() {
+      let maxValue = Math.max.apply(
+        null,
+        this.products.map((item) => item.price)
+      );
+      this.$store.commit("maxPriceValue", maxValue);
+      let minValue = Math.min.apply(
+        null,
+        this.products.map((item) => item.price)
+      );
+      this.$store.commit("minPriceValue", minValue);
+    },
+  },
 };
 </script>
 
 <style lang="sass" scoped>
 .product-list
+    width: 100%
     &>span
         padding: 32px 24px
         width: 100%
