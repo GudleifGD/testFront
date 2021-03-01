@@ -1,11 +1,15 @@
 <template>
   <div id="app">
-    <control-panel></control-panel>
-    <product-list></product-list>
+    <div>
+      <control-panel></control-panel>
+      <product-list></product-list>
+    </div>
+    <add-panel></add-panel>
   </div>
 </template>
 
 <script>
+import AddPanel from './components/AddPanel/AddPanel.vue';
 import ControlPanel from "./components/ControlPanel/ControlPanel.vue";
 import ProductList from "./components/Product/ProductList.vue";
 
@@ -13,7 +17,8 @@ export default {
   name: "App",
   components: {
     ControlPanel,
-    ProductList
+    ProductList,
+    AddPanel
   }
 };
 </script>
@@ -31,6 +36,11 @@ body
   -moz-osx-font-smoothing: grayscale
   color: #2c3e50
   min-height: 100vh
-  height: 100%
+  max-height: 100vh
+  height: 100vh
   display: flex
+  flex-direction: column
+  &>div 
+    display: flex
+    max-height: 70%
 </style>

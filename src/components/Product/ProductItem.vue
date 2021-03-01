@@ -22,11 +22,16 @@ export default {
     name: String,
     price: Number,
     image: String,
-    description: String
+    description: String,
+    baseImage: Boolean
   },
   computed: {
     productImage() {
+      if (this.baseImage == false) {
       return require(`@/assets/products/${this.image}`);
+      } else {
+        return this.image
+      }
     }
   }
 };

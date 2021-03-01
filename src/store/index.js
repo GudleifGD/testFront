@@ -7,7 +7,8 @@ export default new Vuex.Store({
     minPrice: 0,
     maxPrice: 1,
     sortType: "priceUp",
-    currency: "UAH"
+    currency: "UAH",
+    userProducts: ''
   },
   mutations: {
     minPriceValue(state, value) {
@@ -21,8 +22,12 @@ export default new Vuex.Store({
     },
     currencyValue(state, value) {
       state.currency = value;
+    },
+    userProductAdd(state, value) {
+      state.userProducts = value;
     }
   },
-  actions: {},
+  actions: {
+  },
   modules: {}
 });
