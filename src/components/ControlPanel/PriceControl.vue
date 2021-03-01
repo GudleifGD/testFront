@@ -30,28 +30,26 @@
 export default {
   name: "PriceControl",
   data() {
-    return {
-        
-    };
+    return {};
   },
   computed: {
     priceFilterFrom: {
-      get: function () {
+      get: function() {
         return this.$store.state.minPrice;
       },
-      set: function (newValue) {
+      set: function(newValue) {
         this.$store.commit("minPriceValue", newValue);
-      },
+      }
     },
     priceFilterTo: {
-      get: function () {
+      get: function() {
         return this.$store.state.maxPrice;
       },
-      set: function (newValue) {
+      set: function(newValue) {
         this.$store.commit("maxPriceValue", newValue);
-      },
+      }
     }
-  },
+  }
 };
 </script>
 

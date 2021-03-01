@@ -21,68 +21,68 @@ export default {
   name: "ProductList",
   data() {
     return {
-      products: [],
+      products: []
     };
   },
   created() {
     fetch("/products.json")
-      .then((result) => result.json())
-      .then((data) => {
-        this.products = data.products.sort(function (a, b) {
+      .then(result => result.json())
+      .then(data => {
+        this.products = data.products.sort(function(a, b) {
           return a.price - b.price;
         });
         this.setRangePrice();
-        this.products.forEach((item) => (item.priceUah = item.price));
+        this.products.forEach(item => (item.priceUah = item.price));
         this.products.forEach(
-          (item) => (item.priceUsd = Math.round(item.price / 28))
+          item => (item.priceUsd = Math.round(item.price / 28))
         );
       });
   },
   watch: {
-    sortType: function () {
+    sortType: function() {
       const mapper = {
         priceDown: () => {
-          this.products = oldProducts.sort(function (a, b) {
+          this.products = oldProducts.sort(function(a, b) {
             return b.price - a.price;
           });
         },
         priceUp: () => {
-          this.products = oldProducts.sort(function (a, b) {
+          this.products = oldProducts.sort(function(a, b) {
             return a.price - b.price;
           });
         },
         abc: () => {
-          this.products = oldProducts.sort(function (a, b) {
+          this.products = oldProducts.sort(function(a, b) {
             var nameA = a.name.toLowerCase(),
               nameB = b.name.toLowerCase();
             if (nameA < nameB) return -1;
             if (nameA > nameB) return 1;
             return 0;
           });
-        },
+        }
       };
 
       let oldProducts = this.products;
 
       return mapper[this.sortType]();
     },
-    currencyValue: function () {
-       const mapper = {
+    currencyValue: function() {
+      const mapper = {
         UAH: () => {
-          this.products.forEach((item) => (item.price = item.priceUah));
+          this.products.forEach(item => (item.price = item.priceUah));
         },
         USD: () => {
-          this.products.forEach((item) => (item.price = item.priceUsd))
+          this.products.forEach(item => (item.price = item.priceUsd));
         }
       };
       mapper[this.currencyValue]();
       this.setRangePrice();
-    },
+    }
   },
   computed: {
     productsState() {
       return this.products.filter(
-        (product) =>
+        product =>
           this.minValueSort <= product.price &&
           this.maxValueSort >= product.price
       );
@@ -98,22 +98,22 @@ export default {
     },
     currencyValue() {
       return this.$store.state.currency;
-    },
+    }
   },
   methods: {
     setRangePrice() {
       let maxValue = Math.max.apply(
         null,
-        this.products.map((item) => item.price)
+        this.products.map(item => item.price)
       );
       this.$store.commit("maxPriceValue", maxValue);
       let minValue = Math.min.apply(
         null,
-        this.products.map((item) => item.price)
+        this.products.map(item => item.price)
       );
       this.$store.commit("minPriceValue", minValue);
-    },
-  },
+    }
+  }
 };
 </script>
 

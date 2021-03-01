@@ -23,7 +23,7 @@ export default {
   },
   watch: {
     currency: function() {
-      this.$store.commit('currencyValue', this.currency)
+      this.$store.commit("currencyValue", this.currency);
     }
   },
   methods: {
