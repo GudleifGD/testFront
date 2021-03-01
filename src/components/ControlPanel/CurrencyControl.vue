@@ -21,6 +21,11 @@ export default {
       currency: "UAH"
     };
   },
+  watch: {
+    currency: function() {
+      this.$store.commit('currencyValue', this.currency)
+    }
+  },
   methods: {
     defualtCurrency: function() {
       if (this.currency == "UAH") {

@@ -15,6 +15,7 @@
 
 <script>
 import ProductItem from "./ProductItem.vue";
+
 export default {
   components: { ProductItem },
   name: "ProductList",
@@ -31,29 +32,51 @@ export default {
           return a.price - b.price;
         });
         this.setRangePrice();
+        this.products.forEach((item) => (item.priceUah = item.price));
+        this.products.forEach(
+          (item) => (item.priceUsd = Math.round(item.price / 28))
+        );
       });
   },
-  mounted() {},
   watch: {
     sortType: function () {
+      const mapper = {
+        priceDown: () => {
+          this.products = oldProducts.sort(function (a, b) {
+            return b.price - a.price;
+          });
+        },
+        priceUp: () => {
+          this.products = oldProducts.sort(function (a, b) {
+            return a.price - b.price;
+          });
+        },
+        abc: () => {
+          this.products = oldProducts.sort(function (a, b) {
+            var nameA = a.name.toLowerCase(),
+              nameB = b.name.toLowerCase();
+            if (nameA < nameB) return -1;
+            if (nameA > nameB) return 1;
+            return 0;
+          });
+        },
+      };
+
       let oldProducts = this.products;
-      if (this.sortType == "priceDown") {
-        this.products = oldProducts.sort(function (a, b) {
-          return b.price - a.price;
-        });
-      } else if (this.sortType == "priceUp") {
-        this.products = oldProducts.sort(function (a, b) {
-          return a.price - b.price;
-        });
-      } else if (this.sortType == "abc") {
-        this.products = oldProducts.sort(function (a, b) {
-          var nameA = a.name.toLowerCase(),
-            nameB = b.name.toLowerCase();
-          if (nameA < nameB) return -1;
-          if (nameA > nameB) return 1;
-          return 0;
-        });
-      }
+
+      return mapper[this.sortType]();
+    },
+    currencyValue: function () {
+       const mapper = {
+        UAH: () => {
+          this.products.forEach((item) => (item.price = item.priceUah));
+        },
+        USD: () => {
+          this.products.forEach((item) => (item.price = item.priceUsd))
+        }
+      };
+      mapper[this.currencyValue]();
+      this.setRangePrice();
     },
   },
   computed: {
@@ -72,6 +95,9 @@ export default {
     },
     minValueSort() {
       return this.$store.state.minPrice;
+    },
+    currencyValue() {
+      return this.$store.state.currency;
     },
   },
   methods: {
@@ -93,13 +119,13 @@ export default {
 
 <style lang="sass" scoped>
 .product-list
+  width: 100%
+  &>span
+    padding: 32px 24px
     width: 100%
-    &>span
-        padding: 32px 24px
-        width: 100%
-        height: 100%
-        display: flex
-        justify-content: space-evenly
-        flex-wrap: wrap
-        background: #f4f7fe
+    height: 100%
+    display: flex
+    justify-content: space-evenly
+    flex-wrap: wrap
+    background: #f4f7fe
 </style>
