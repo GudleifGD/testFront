@@ -25,20 +25,32 @@ export default {
       products: [],
     };
   },
-  created() {
+  mounted() {
     fetch("/products.json")
       .then((result) => result.json())
       .then((data) => {
-        this.products = data.products.sort(function (a, b) {
-          return a.price - b.price;
-        });
+        this.products = data.products;
         this.setRangePrice();
         this.products.forEach((item) => {
           item.priceUah = item.price;
-          item.priceUsd = Math.round(item.price / 28)
+          item.priceUsd = Math.round(item.price / 28);
           item.baseImage = false;
         });
-      });
+      })  
+      .then(() => {
+        if (localStorage.getItem("userProducts")) {
+          let save = JSON.parse(localStorage.getItem("userProducts"));
+          this.products = this.products.concat(save);
+          this.setRangePrice();
+        } else {
+          this.setRangePrice();
+        };
+      })
+      .then(() => {
+        this.products.sort(function (a, b) {
+          return a.price - b.price;
+        });
+      }); 
   },
   watch: {
     userProducts: function () {

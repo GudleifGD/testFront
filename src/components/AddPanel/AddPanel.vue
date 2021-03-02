@@ -119,9 +119,21 @@ export default {
           this.SaveBtn = 'Error'
       } else {
         this.$store.commit("userProductAdd", item);
+        this.toLocalStorage(item);
         this.SaveBtn = 'Ok!'
       }
     },
+    toLocalStorage(itemSave) {
+        if (localStorage.getItem("userProducts")) {
+            let save = JSON.parse(localStorage.getItem("userProducts"));
+            save.push(itemSave);
+            localStorage.setItem ("userProducts", JSON.stringify(save));
+        } else {
+            let save = [];
+            save[0]= itemSave;
+            localStorage.setItem ("userProducts", JSON.stringify(save))
+        }
+    }
   },
 };
 </script>
